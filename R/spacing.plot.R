@@ -7,7 +7,7 @@
 #' @param y.name a character value indicating y variable
 #' @param color a character value indicating which variable to use for colouring
 #' @param node.shown node selected in the 2nd hierarchy level to be expanded out
-#' @param index labels and tree branches size index
+#' @param index labels size and tree branches (lines) thickness
 #' @param aspect plot aspect ratio
 #' @param ... ggplot functions and layers to be passed on
 #
@@ -133,7 +133,7 @@ spacing.plot_selected = function(tree, x.name, node.shown, ...,
 #' @param y.name a character value indicating y variable
 #' @param color a character value indicating which variable to use for colouring
 #' @param levels.shown a numeric value indicating which level plot up to
-#' @param index labels and tree branches size index
+#' @param index labels size and tree branches (lines) thickness
 #' @param aspect plot aspect ratio
 #' @param ... ggplot functions and layers to be passed on
 #

@@ -3,7 +3,7 @@
 #' @param label label to be drawn as the name of node
 #' @param current.level current hierarchy level we are drawing at
 #' @param no.nodes number of nodes in the current level
-#' @param index tree branches (lines) size index
+#' @param index labels size
 #' @param selected whether the vertical branch is connecting to a selected node
 #' @param ... other arguments passed on to the function
 #'

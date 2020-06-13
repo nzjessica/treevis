@@ -1,7 +1,7 @@
 #' Horizontal branches connecting up two levels
 #'
 #'
-#' @param index the tree branch (line) size index
+#' @param index tree branches (lines) thickness
 #' @param selected whether the tree branch is connecting to a selected node
 #' @param ... other arguments passed on to the function
 #'
@@ -20,7 +20,7 @@ branches = function(index, selected = F, ...){
 #'
 #' @param x0 x coordinate of where the tree branch starts
 #' @param x1 x coordinate of where the tree branch ends
-#' @param index the tree branch (line) size index
+#' @param index tree branches (lines) thickness
 #' @param ... other arguments passed on to the function
 #'
 #'
@@ -38,7 +38,7 @@ branches.shifted = function(x0 = 0, x1 = 1, index, ...){
 #'
 #' @param y y coordinates for each node in a vector
 #' @param segement.index indices in y of where to draw the vertical tree branches
-#' @param index tree branches (lines) size index
+#' @param index tree branches (lines) thickness
 #' @param selected whether the vertical branch is connecting to a selected node
 #' @param ... other arguments passed on to the function
 #'

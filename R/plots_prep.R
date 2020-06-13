@@ -26,7 +26,7 @@ nested.dlply <- function(df, by, fun, ...) {
 #' @param x.name x variable
 #' @param y.name y variable
 #' @param color variable to be coloured by
-#' @param index labels and tree branches size index
+#' @param index labels size and tree branches (lines) thickness
 #' @param aspect plot aspect ratio
 #' @param ... ggplot functions and layers to be passed on
 #'
@@ -83,7 +83,7 @@ plot_prep = function(df, level, x.name, y.name, color, index, aspect, ...) {
 #' @param y.name y variable
 #' @param color variable to be coloured by
 #' @param levels.shown which level to be shown
-#' @param index labels and tree branches size index
+#' @param index labels size and tree branches (lines) thickness
 #' @param aspect plot aspect ratio
 #' @param ... ggplot functions and layers to be passed on
 #
