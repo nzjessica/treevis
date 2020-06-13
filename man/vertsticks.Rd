@@ -11,7 +11,7 @@ vertsticks(y, segement.index, index, selected = F, ...)
 
 \item{segement.index}{indices in y of where to draw the vertical tree branches}
 
-\item{index}{tree branches (lines) size index}
+\item{index}{tree branches (lines) thickness}
 
 \item{selected}{whether the vertical branch is connecting to a selected node}
 

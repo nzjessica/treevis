@@ -27,7 +27,7 @@ spacing.plot_selected(
 
 \item{y.name}{a character value indicating y variable}
 
-\item{index}{labels and tree branches size index}
+\item{index}{labels size and tree branches (lines) thickness}
 
 \item{aspect}{plot aspect ratio}
 

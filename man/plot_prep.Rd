@@ -17,7 +17,7 @@ plot_prep(df, level, x.name, y.name, color, index, aspect, ...)
 
 \item{color}{variable to be coloured by}
 
-\item{index}{labels and tree branches size index}
+\item{index}{labels size and tree branches (lines) thickness}
 
 \item{aspect}{plot aspect ratio}
 

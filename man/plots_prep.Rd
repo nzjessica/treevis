@@ -17,7 +17,7 @@ plots_prep(tree, x.name, y.name, color, levels.shown, index, aspect, ...)
 
 \item{levels.shown}{which level to be shown}
 
-\item{index}{labels and tree branches size index}
+\item{index}{labels size and tree branches (lines) thickness}
 
 \item{aspect}{plot aspect ratio}
 

@@ -11,7 +11,7 @@ branches.shifted(x0 = 0, x1 = 1, index, ...)
 
 \item{x1}{x coordinate of where the tree branch ends}
 
-\item{index}{the tree branch (line) size index}
+\item{index}{tree branches (lines) thickness}
 
 \item{...}{other arguments passed on to the function}
 }

@@ -7,7 +7,7 @@
 branches(index, selected = F, ...)
 }
 \arguments{
-\item{index}{the tree branch (line) size index}
+\item{index}{tree branches (lines) thickness}
 
 \item{selected}{whether the tree branch is connecting to a selected node}
 

@@ -25,7 +25,7 @@ spacing.plot_all(
 
 \item{y.name}{a character value indicating y variable}
 
-\item{index}{labels and tree branches size index}
+\item{index}{labels size and tree branches (lines) thickness}
 
 \item{levels.shown}{a numeric value indicating which level plot up to}
 

@@ -13,7 +13,7 @@ labels(label, current.level = 1, no.nodes = 1, index, selected = F, ...)
 
 \item{no.nodes}{number of nodes in the current level}
 
-\item{index}{tree branches (lines) size index}
+\item{index}{labels size}
 
 \item{selected}{whether the vertical branch is connecting to a selected node}
 
