@@ -7,13 +7,11 @@
 #' @param y.name a character value indicating y variable
 #' @param color a character value indicating which variable to use for colouring
 #' @param node.shown node selected in the 2nd hierarchy level to be expanded out
-#' @param index labels and tree branches index
+#' @param index labels and tree branches size index
 #' @param aspect plot aspect ratio
 #' @param ... ggplot functions and layers to be passed on
 #
 #' @return a svg file will be saved in the current working directory and automatically opened in a web broswer
-#'
-#' @import grid grDevices utils
 #'
 #'
 #' @examples
@@ -36,11 +34,14 @@
 #'                       ggtitle("Monthly Income density plot"))
 #' }
 #'
+#' @import grid
+#' @importFrom grDevices svg dev.off
+#' @importFrom utils browseURL
 #'
 #' @export
 spacing.plot_selected = function(tree, x.name, node.shown, ...,
                                  y.name = NULL, index = 1, aspect = 1, color = NULL) {
-  # grid.newpage()
+
   vplayout <- function(x, y) viewport(layout.pos.row = x, layout.pos.col = y)
   p = plots_prep(tree, x.name, y.name, color, 3, index, ..., aspect = aspect)
   thenode = p[[3]][[node.shown]]
@@ -53,26 +54,18 @@ spacing.plot_selected = function(tree, x.name, node.shown, ...,
                                            widths = unit(c(0.5, 1, rep_len(c(0.25, 0.75, 1), 6)),
                                                          "null"))))
 
-  ###########################################################
-  # plots and names preparation
   y3 = seq(1-1/length(thenode)/2, 1/length(thenode)/2, len=length(thenode))
   y2 = seq(1-1/length(p[[2]])/2, 1/length(p[[2]])/2, len=length(p[[2]]))
   z = grep(node.shown, names(p[[2]]))
 
-  # last column
   pushViewport(viewport(layout.pos.col=8,
                         layout=grid.layout(length(thenode), 1)))
   sapply(1:length(thenode), function(j) {
-    # ##########################################################
-    # grid.rect(vp = vplayout(j,1))
-    # ##########################################################
     print(thenode[[j]], newpage= F, vp = vplayout(j,1))
   })
 
   popViewport()
 
-
-  # second to the last column
   pushViewport(viewport(layout.pos.col=7))
   sapply(1:length(thenode), function(j) {
     branches(index = index, vp = viewport(y = y3[j]), selected = T)
@@ -85,21 +78,16 @@ spacing.plot_selected = function(tree, x.name, node.shown, ...,
 
   vertsticks(y = sort(c(y2[z], y3)), segement.index = length(thenode) + 1,
              selected = T, index = index, vp = vplayout(1,6))
-  # ############# vertical stick between second and third level, vertical stick at the end
-  # y2 = seq(1-1/length(p[[2]])/2, 1/length(p[[2]])/2, len=length(p[[2]]))
 
-  # col 6
   pushViewport(viewport(layout.pos.col=6))
-  connection(index = index, selected = T, vp = viewport(y = y2[z]))
+  branches(index = index, selected = T, vp = viewport(y = y2[z]))
   popViewport()
 
-  # col 5
   pushViewport(viewport(layout.pos.col=5))
   sapply(1:length(p[[2]]), function(j)
     print(p[[2]][[j]], newpage=F, vp = viewport(y = y2[j])))
   popViewport()
 
-  # col 4
   pushViewport(viewport(layout.pos.col=4))
   sapply(1:length(p[[2]]), function(j) {
     branches(index = index, selected = ifelse(j == z, T, F),
@@ -112,20 +100,15 @@ spacing.plot_selected = function(tree, x.name, node.shown, ...,
 
   y1 = vertsticks(y = y2, segement.index = length(p[[2]]),
                   index = index, vp = vplayout(1,3))
-  ##############################
 
-
-  # col 3
   pushViewport(viewport(layout.pos.col=3))
-  connection(index = index, vp = viewport(y = y1))
+  branches(index = index, vp = viewport(y = y1))
   popViewport()
 
-  # col 2
   pushViewport(viewport(layout.pos.col=2))
   print(p[[1]], newpage= F, vp = viewport(y = y1))
   popViewport()
 
-  # col 1
   pushViewport(viewport(layout.pos.col=1))
   branches(index = index, vp = viewport(y = y1))
   labels(label = tree[["name"]], no.nodes = length(thenode),
@@ -150,13 +133,12 @@ spacing.plot_selected = function(tree, x.name, node.shown, ...,
 #' @param y.name a character value indicating y variable
 #' @param color a character value indicating which variable to use for colouring
 #' @param levels.shown a numeric value indicating which level plot up to
-#' @param index labels and tree branches index
+#' @param index labels and tree branches size index
 #' @param aspect plot aspect ratio
 #' @param ... ggplot functions and layers to be passed on
 #
 #' @return a svg file will be saved in the current working directory and automatically opened in a web broswer
 #'
-#' @import grid grDevices utils
 #'
 #' @examples
 #' \dontrun{
@@ -180,13 +162,17 @@ spacing.plot_selected = function(tree, x.name, node.shown, ...,
 #' }
 #'
 #'
+#' @import grid
+#' @importFrom grDevices svg dev.off
+#' @importFrom utils browseURL
+#'
+#'
 #' @export
 spacing.plot_all = function(tree, x.name, ..., y.name = NULL, index = 1,
                             levels.shown = min(3, tree[["height"]]), aspect = 1, color = NULL) {
-  # grid.newpage()
+
   vplayout <- function(x, y) viewport(layout.pos.row = x, layout.pos.col = y)
 
-  #level 1
   if (levels.shown == 1) {
     svg(paste0(tree[["name"]], ".svg"),
         width = 1*3*4, height = 5)
@@ -204,7 +190,7 @@ spacing.plot_all = function(tree, x.name, ..., y.name = NULL, index = 1,
 
     print(p[[1]], newpage = F, vp = vplayout(1,2))
   }
-  #level 2
+
   else if (levels.shown == 2) {
     p = plots_prep(tree, x.name, y.name, color, 2, index, ..., aspect = aspect)
 
@@ -215,13 +201,12 @@ spacing.plot_all = function(tree, x.name, ..., y.name = NULL, index = 1,
                                              widths = unit(c(0.5, 1, c(0.25, 0.75, 1)),
                                                            "null"))))
     y2 = seq(1-1/length(p[[2]])/2, 1/length(p[[2]])/2, len=length(p[[2]]))
-    # col 5
+
     pushViewport(viewport(layout.pos.col=5))
     sapply(1:length(p[[2]]), function(j)
       print(p[[2]][[j]], newpage=F, vp = viewport(y = y2[j])))
     popViewport()
 
-    # col 4
     pushViewport(viewport(layout.pos.col=4))
     sapply(1:length(p[[2]]), function(j) {
       branches(index = index, vp = viewport(y = y2[j]))
@@ -233,20 +218,16 @@ spacing.plot_all = function(tree, x.name, ..., y.name = NULL, index = 1,
 
     y1 = vertsticks(y = y2, segement.index = length(p[[2]]),
                     index = index, vp = vplayout(1,3))
-    ##############################
 
 
-    # col 3
     pushViewport(viewport(layout.pos.col=3))
-    connection(index = index, vp = viewport(y = y1))
+    branches(index = index, vp = viewport(y = y1))
     popViewport()
 
-    # col 2
     pushViewport(viewport(layout.pos.col=2))
     print(p[[1]], newpage= F, vp = viewport(y = y1))
     popViewport()
 
-    # col 1
     pushViewport(viewport(layout.pos.col=1))
     branches(index = index, vp = viewport(y = y1))
     labels(label = tree[["name"]], no.nodes = length(p[[2]]),
@@ -256,7 +237,6 @@ spacing.plot_all = function(tree, x.name, ..., y.name = NULL, index = 1,
 
   }
 
-  #level 3
   else {
     p = plots_prep(tree, x.name, y.name, color, levels.shown, index, ..., aspect = aspect)
 
@@ -268,27 +248,17 @@ spacing.plot_all = function(tree, x.name, ..., y.name = NULL, index = 1,
                                              widths = unit(c(0.5, 1, rep_len(c(0.25, 0.75, 1), 6), 1),
                                                            "null"))))
 
-    ###########################################################
-
-    # plots and names preparation
     temp.unlist = unlist(p[[3]], recursive = F)
     y3 = seq(1-1/length(temp.unlist)/2, 1/length(temp.unlist)/2, len=length(temp.unlist))
 
-
-    # last column
     pushViewport(viewport(layout.pos.col=8,
                           layout=grid.layout(length(temp.unlist), 1)))
     sapply(1:length(temp.unlist), function(j) {
-      # ##########################################################
-      # grid.rect(vp = vplayout(j,1))
-      # ##########################################################
       print(temp.unlist[[j]], newpage= F, vp = vplayout(j,1))
     })
 
     popViewport()
 
-
-    # second to the last column
     pushViewport(viewport(layout.pos.col=7))
     sapply(1:length(temp.unlist), function(j) {
       branches(index = index, vp = viewport(y = y3[j]))
@@ -299,25 +269,19 @@ spacing.plot_all = function(tree, x.name, ..., y.name = NULL, index = 1,
     })
     popViewport()
 
-
-    ############# vertical stick between second and third level, vertical stick at the end
     y2 = vertsticks(y = y3, segement.index = sapply(p[[3]], length),
                     index = index, vp = vplayout(1,6))
 
-
-    # col 6
     pushViewport(viewport(layout.pos.col=6))
     sapply(1:length(p[[2]]), function(j)
-      connection(index = index, vp = viewport(y = y2[j])))
+      branches(index = index, vp = viewport(y = y2[j])))
     popViewport()
 
-    # col 5
     pushViewport(viewport(layout.pos.col=5))
     sapply(1:length(p[[2]]), function(j)
       print(p[[2]][[j]], newpage=F, vp = viewport(y = y2[j])))
     popViewport()
 
-    # col 4
     pushViewport(viewport(layout.pos.col=4))
     sapply(1:length(p[[2]]), function(j) {
       branches(index = index, vp = viewport(y = y2[j]))
@@ -329,20 +293,15 @@ spacing.plot_all = function(tree, x.name, ..., y.name = NULL, index = 1,
 
     y1 = vertsticks(y = y2, segement.index = length(p[[2]]),
                     index = index, vp = vplayout(1,3))
-    ##############################
 
-
-    # col 3
     pushViewport(viewport(layout.pos.col=3))
-    connection(index = index, vp = viewport(y = y1))
+    branches(index = index, vp = viewport(y = y1))
     popViewport()
 
-    # col 2
     pushViewport(viewport(layout.pos.col=2))
     print(p[[1]], newpage= F, vp = viewport(y = y1))
     popViewport()
 
-    # col 1
     pushViewport(viewport(layout.pos.col=1))
     branches(index = index, vp = viewport(y = y1))
     labels(label = tree[["name"]], no.nodes = length(temp.unlist),

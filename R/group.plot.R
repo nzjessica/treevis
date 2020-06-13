@@ -7,13 +7,12 @@
 #' @param y.name a character value indicating y variable
 #' @param color a character value indicating which variable to use for colouring
 #' @param node.shown node selected in the 2nd hierarchy level to be expanded out
-#' @param index labels and tree branches index
+#' @param index labels and tree branches size index
 #' @param aspect plot aspect ratio
 #' @param ... ggplot functions and layers to be passed on
 #
 #' @return a svg file will be saved in the current working directory and automatically opened in a web broswer
 #'
-#' @import grid grDevices utils
 #'
 #'
 #' @examples
@@ -37,10 +36,15 @@
 #' }
 #'
 #'
+#' @import grid
+#' @importFrom grDevices svg dev.off
+#' @importFrom utils browseURL
+#'
+#'
 #' @export
 group.plot_selected = function(tree, x.name, node.shown, ...,
                                y.name = NULL, index = 1, aspect = NULL, color = NULL) {
-  # grid.newpage()
+
   vplayout <- function(x, y) viewport(layout.pos.row = x, layout.pos.col = y)
   p = plots_prep(tree, x.name, y.name, color, 3, index, ..., aspect = aspect)
   thenode = p[[3]][[node.shown]]
@@ -51,13 +55,11 @@ group.plot_selected = function(tree, x.name, node.shown, ...,
 
   pushViewport(viewport(layout=grid.layout(1, 5,
                                            widths = unit(c(0.5, 1, 0.25, 0.25, 1), "null"))))
-  # plots and names preparation
+
   z = grep(node.shown, names(p[[2]]))
   y = seq(1-(1/length(p[[2]])/2), 1/length(p[[2]])/2, by = -1/length(p[[2]]))
   total_no = max(length(p[[2]]), z-1+length(thenode))
 
-
-  # col 5
   pushViewport(viewport(layout.pos.col=5,
                         layout=grid.layout(total_no, 1)))
   sapply(z:(z-1+length(thenode)), function(j) {
@@ -75,18 +77,12 @@ group.plot_selected = function(tree, x.name, node.shown, ...,
 
   popViewport()
 
-
-  # col 4
-  # col 3
   pushViewport(viewport(layout.pos.col=3:4,
                         layout=grid.layout(length(p[[2]]), 1)))
   branches(index = index, vp = vplayout(z,1), selected = T)
 
-
   popViewport()
 
-
-  # col 2
   pushViewport(viewport(layout.pos.col=2,
                         layout=grid.layout(length(p[[2]]), 1)))
   sapply(1:length(p[[2]]), function(j) {
@@ -107,13 +103,10 @@ group.plot_selected = function(tree, x.name, node.shown, ...,
 
   popViewport()
 
-
-  # col 1
   pushViewport(viewport(layout.pos.col=1))
   branches(index = index)
   labels(label = tree[["name"]], index = index, vp = viewport(x = 0.01))
   popViewport()
-
 
   dev.off()
   browseURL(paste0(getwd(),"/",tree[["name"]],"_",node.shown,".svg"))
@@ -131,13 +124,12 @@ group.plot_selected = function(tree, x.name, node.shown, ...,
 #' @param y.name a character value indicating y variable
 #' @param color a character value indicating which variable to use for colouring
 #' @param levels.shown a numeric value indicating which level plot up to
-#' @param index labels and tree branches index
+#' @param index labels and tree branches size index
 #' @param aspect plot aspect ratio
 #' @param ... ggplot functions and layers to be passed on
 #
 #' @return a svg file will be saved in the current working directory and automatically opened in a web broswer
 #'
-#' @import grid grDevices utils
 #'
 #' @examples
 #' \dontrun{
@@ -163,13 +155,17 @@ group.plot_selected = function(tree, x.name, node.shown, ...,
 #' }
 #'
 #'
+#' @import grid
+#' @importFrom grDevices svg dev.off
+#' @importFrom utils browseURL
+#'
+#'
 #' @export
 group.plot_all = function(tree, x.name, ..., y.name = NULL,
                           index = 1, levels.shown = 3, aspect = NULL, color = NULL){
-  # grid.newpage()
+
   vplayout <- function(x, y) viewport(layout.pos.row = x, layout.pos.col = y)
 
-  ## level 1 or 2
   if (levels.shown == 1 | levels.shown == 2) {
     p = plots_prep(tree, x.name, y.name, color, 2, index, ..., aspect = aspect)
 
@@ -179,7 +175,7 @@ group.plot_all = function(tree, x.name, ..., y.name = NULL,
 
     pushViewport(viewport(layout=grid.layout(1, 2,
                                              widths = unit(c(0.5, 1), "null"))))
-    # col 2
+
     pushViewport(viewport(layout.pos.col=2,
                           layout=grid.layout(length(p[[2]]), 1)))
     sapply(1:length(p[[2]]), function(j) {
@@ -192,7 +188,6 @@ group.plot_all = function(tree, x.name, ..., y.name = NULL,
     })
     popViewport()
 
-    # col 1
     pushViewport(viewport(layout.pos.col=1))
     branches(index = index)
     labels(label = tree[["name"]],
@@ -210,7 +205,7 @@ group.plot_all = function(tree, x.name, ..., y.name = NULL,
 
     pushViewport(viewport(layout=grid.layout(1, 4,
                                              widths = unit(c(0.5, 1, 0.5, 1), "null"))))
-    # plots and names preparation
+
     temp.unlist = unlist(p[[3]], recursive = F)
 
     total_no = length(temp.unlist)+length(p[[3]])-1
@@ -223,8 +218,6 @@ group.plot_all = function(tree, x.name, ..., y.name = NULL,
     y1 = (middle_index-1:length(p[[2]]))* 1/total_no+y2[middle_index]
     x = abs((middle_index-1:length(p[[2]])) * 0.05)
 
-
-    # col 4
     pushViewport(viewport(layout.pos.col=4,
                           layout=grid.layout(total_no, 1)))
     sapply(index_used, function(j) {
@@ -240,14 +233,11 @@ group.plot_all = function(tree, x.name, ..., y.name = NULL,
 
     popViewport()
 
-
-    # col 3
     pushViewport(viewport(layout.pos.col=3))
     sapply(1:length(p[[2]]), function(j) {
       branches.shifted(x0 = 0.5-x[j], index = index, vp = viewport(y = y2[j]))
     })
 
-    ## middle vertical connecting sticks
     grid.draw(segmentsGrob(x0 = 0.5-x, x1 = 0.5-x, y0 = y2,
                            y1 = y1, gp=gpar(lwd = 3*(1+0.1*index))))
 
@@ -257,8 +247,6 @@ group.plot_all = function(tree, x.name, ..., y.name = NULL,
     })
     popViewport()
 
-
-    # col 2
     a = seq(min(y1)-(abs(diff(y1))[1]/2), max(y1)+(abs(diff(y1))[1]/2), len=length(y1))
     pushViewport(viewport(layout.pos.col=2,
                           layout=grid.layout(3, 1,
@@ -278,7 +266,6 @@ group.plot_all = function(tree, x.name, ..., y.name = NULL,
     popViewport()
     popViewport()
 
-    # col 1
     pushViewport(viewport(layout.pos.col=1))
     branches(index = index, vp = viewport(y = y1[middle_index]))
     labels(label = tree[["name"]], index = index+1,

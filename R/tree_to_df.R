@@ -14,6 +14,11 @@
 #'
 #' @export
 tree_to_df = function(tree, ...) {
+  if (length(tree$fields) != 0) {
+    fields = tree$fields
+    suppressWarnings(tree$Do(function(node) node$RemoveAttribute(fields),
+                             filterFun = isNotLeaf))
+  }
   vars = c(...)
   list1 = as.list(tree)[-1]
   list2 = rlist::list.flatten(list1, use.names = T)

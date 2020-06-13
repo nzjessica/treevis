@@ -18,9 +18,9 @@
 #'            c("Department", "JobRole", "EmployeeNumber"))
 #' }
 #'
+#' @importFrom data.tree as.Node
 #'
 #' @export
-#' @import data.tree
 createTree <- function(df, root_name, hierarchy_order){
   df[["pathString"]] = do.call(paste, c(root_name, df[hierarchy_order], list(sep = "/")))
   df.tree = as.Node(df, check = "no-warn")

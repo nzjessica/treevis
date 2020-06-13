@@ -1,6 +1,6 @@
 #' Aggregate attribute values throughout the entire tree recursively
 #'
-#' @description This function aggregates the selected attribute values of each node to its corresponding parent node using customised function, upto the root node.
+#' @description This function aggregates multiple attribute variables from children nodes to their corresponding parent node simultaneously using a specific function
 #'
 #'
 #' @param tree the data tree object
@@ -24,9 +24,9 @@
 #'              traversal = "post-order")
 #'}
 #'
+#' @importFrom data.tree Aggregate Traverse Do
 #'
 #' @export
-#' @import data.tree
 Aggregate.dt = function(tree, ..., aggfun,
                         traversal = c("pre-order", "post-order", "in-order",
                                       "level", "ancestor")){

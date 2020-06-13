@@ -6,7 +6,7 @@
 #' @param ... other arguments passed on to the function
 #'
 #'
-#' @import plyr
+#' @importFrom  plyr dlply
 #'
 #'
 nested.dlply <- function(df, by, fun, ...) {
@@ -19,12 +19,14 @@ nested.dlply <- function(df, by, fun, ...) {
 
 
 #' Generate ggplot objects for a certain level in the tree
+#'
+#'
 #' @param df a dataframe
 #' @param level which level to be plotted
 #' @param x.name x variable
 #' @param y.name y variable
 #' @param color variable to be coloured by
-#' @param index labels and tree branches index
+#' @param index labels and tree branches size index
 #' @param aspect plot aspect ratio
 #' @param ... ggplot functions and layers to be passed on
 #'
@@ -69,10 +71,10 @@ plot_prep = function(df, level, x.name, y.name, color, index, aspect, ...) {
   }
 
 }
-#'
-#'
-#'
-#' Save all ggplot objects which will be used into a nested list
+
+
+
+#' A nested list of ggplot objects
 #'
 #'
 #'
@@ -81,7 +83,7 @@ plot_prep = function(df, level, x.name, y.name, color, index, aspect, ...) {
 #' @param y.name y variable
 #' @param color variable to be coloured by
 #' @param levels.shown which level to be shown
-#' @param index labels and tree branches index
+#' @param index labels and tree branches size index
 #' @param aspect plot aspect ratio
 #' @param ... ggplot functions and layers to be passed on
 #
