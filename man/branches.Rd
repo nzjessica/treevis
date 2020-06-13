@@ -2,17 +2,17 @@
 % Please edit documentation in R/branches.R
 \name{branches}
 \alias{branches}
-\title{Function to draw branch for each node}
+\title{Horizontal branches connecting up two levels}
 \usage{
 branches(index, selected = F, ...)
 }
 \arguments{
-\item{index}{tree branches (lines) index}
+\item{index}{the tree branch (line) size index}
 
-\item{selected}{whether the vertical branch is connecting to a selected node}
+\item{selected}{whether the tree branch is connecting to a selected node}
 
 \item{...}{other arguments passed on to the function}
 }
 \description{
-Function to draw branch for each node
+Horizontal branches connecting up two levels
 }

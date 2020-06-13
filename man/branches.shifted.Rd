@@ -2,21 +2,19 @@
 % Please edit documentation in R/branches.R
 \name{branches.shifted}
 \alias{branches.shifted}
-\title{Function to draw branch for each node --- slight shifted version}
+\title{Horizontal branches connecting up two levels --- slight shifted version}
 \usage{
-branches.shifted(x0 = 0, x1 = 1, index, selected = F, ...)
+branches.shifted(x0 = 0, x1 = 1, index, ...)
 }
 \arguments{
-\item{x0}{x0 coordinate}
+\item{x0}{x coordinate of where the tree branch starts}
 
-\item{x1}{x1 coordinate}
+\item{x1}{x coordinate of where the tree branch ends}
 
-\item{index}{tree branches (lines) index}
-
-\item{selected}{whether the vertical branch is connecting to a selected node}
+\item{index}{the tree branch (line) size index}
 
 \item{...}{other arguments passed on to the function}
 }
 \description{
-Function to draw branch for each node --- slight shifted version
+Horizontal branches connecting up two levels --- slight shifted version
 }

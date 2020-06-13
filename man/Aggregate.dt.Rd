@@ -22,7 +22,7 @@ Aggregate.dt(
 any of 'pre-order' (the default), 'post-order', 'in-order', 'level', 'ancestor', or a custom function}
 }
 \description{
-This function aggregates the selected attribute values of each node to its corresponding parent node using customised function, upto the root node.
+This function aggregates multiple attribute variables from children nodes to their corresponding parent node simultaneously using a specific function
 }
 \examples{
 \dontrun{
@@ -37,6 +37,5 @@ Aggregate.dt(employee.tree, "MonthlyIncome",
              aggfun = function(x) mean(x, na.rm = TRUE),
              traversal = "post-order")
 }
-
 
 }

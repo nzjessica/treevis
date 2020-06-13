@@ -30,5 +30,4 @@ employee.tree = createTree(employee, "Employee Information",
            c("Department", "JobRole", "EmployeeNumber"))
 }
 
-
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/plots_prep.R
 \name{plots_prep}
 \alias{plots_prep}
-\title{Save all ggplot objects which will be used into a nested list}
+\title{A nested list of ggplot objects}
 \usage{
 plots_prep(tree, x.name, y.name, color, levels.shown, index, aspect, ...)
 }
@@ -17,7 +17,7 @@ plots_prep(tree, x.name, y.name, color, levels.shown, index, aspect, ...)
 
 \item{levels.shown}{which level to be shown}
 
-\item{index}{labels and tree branches index}
+\item{index}{labels and tree branches size index}
 
 \item{aspect}{plot aspect ratio}
 
@@ -27,5 +27,5 @@ plots_prep(tree, x.name, y.name, color, levels.shown, index, aspect, ...)
 a nested list of ggplot objects in a tree-structure
 }
 \description{
-Save all ggplot objects which will be used into a nested list
+A nested list of ggplot objects
 }

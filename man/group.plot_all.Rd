@@ -25,7 +25,7 @@ group.plot_all(
 
 \item{y.name}{a character value indicating y variable}
 
-\item{index}{labels and tree branches index}
+\item{index}{labels and tree branches size index}
 
 \item{levels.shown}{a numeric value indicating which level plot up to}
 

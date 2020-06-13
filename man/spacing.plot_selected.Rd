@@ -27,7 +27,7 @@ spacing.plot_selected(
 
 \item{y.name}{a character value indicating y variable}
 
-\item{index}{labels and tree branches index}
+\item{index}{labels and tree branches size index}
 
 \item{aspect}{plot aspect ratio}
 
@@ -59,6 +59,5 @@ spacing.plot_selected(employee.tree, x.name ="MonthlyIncome", index = 2,
                       node.shown = "Human Resources", geom_density(),
                       ggtitle("Monthly Income density plot"))
 }
-
 
 }

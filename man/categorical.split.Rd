@@ -14,7 +14,7 @@ A data frame
 }
 \description{
 Expand all factors (categorical variables) into multiple dummy variables whilst keeping all other variables in the df
-(if the factor only contain two levels then the factor will be turned into one dummy variable with only 1/0 instead of unnecessary expanding.)
+(if the factor only contains two levels then the factor will be turned into one dummy variable with only 1/0 instead of unnecessary expanding.)
 }
 \examples{
 ### An example dataset

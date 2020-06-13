@@ -4,16 +4,14 @@
 \alias{display.dt}
 \title{Print out the tree with selected attribute variables up to a certain level.}
 \usage{
-display.dt(tree, levels.shown, attribute, ...)
+display.dt(tree, ..., levels.shown = tree[["height"]])
 }
 \arguments{
 \item{tree}{the data tree object to be printed}
 
-\item{levels.shown}{a numeric value indicating which level print up to}
+\item{...}{attribute variables or arguments to be passed on}
 
-\item{attribute}{the selected attribute variable to be printed}
-
-\item{...}{other attribute variables to be passed on}
+\item{levels.shown}{a numeric value indicating which hierarchy level of the tree to print up to}
 }
 \description{
 Print out the tree with selected attribute variables up to a certain level.
