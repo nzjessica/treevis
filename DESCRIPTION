@@ -9,7 +9,8 @@ Authors@R:
            email = "ydua977@aucklanduni.ac.nz")
 Description: Involves operational and graphical functions that can better visualise
               and deal with hierarchical datasets. 
-Depends: R (>= 3.5.0)
+Depends: R (>= 3.5.0),
+      ggplot2
 License: GPL-3
 Encoding: UTF-8
 NeedsCompilation: no
@@ -17,7 +18,6 @@ LazyData: true
 Imports: 
       data.tree, 
       grid, 
-      ggplot2, 
       plyr, 
       rlist,
       grDevices,
