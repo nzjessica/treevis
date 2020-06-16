@@ -11,32 +11,27 @@
 #' tree_to_df(employee.tree, "Age", "Education")
 #'}
 #'
+#' @importFrom data.tree isLeaf
 #'
 #' @export
 tree_to_df = function(tree, ...) {
-  if (length(tree$fields) != 0) {
-    fields = tree$fields
-    suppressWarnings(tree$Do(function(node) node$RemoveAttribute(fields),
-                             filterFun = isNotLeaf))
-  }
   vars = c(...)
-  list1 = as.list(tree)[-1]
-  list2 = rlist::list.flatten(list1, use.names = T)
+  if (is.null(vars)) {
+    levels.df = as.data.frame(t(tree$Get("path", filterFun = isLeaf)),
+                              stringsAsFactors = F, row.names = F)
+    colnames(levels.df) = paste0("level_", seq(levels.df))
+    return(levels.df)
+  }
 
   attributes = lapply(vars, function(x) {
-    unlist(list2[grep(names(list2),
-                      pattern = paste0("\\b",x,"\\b"), perl = T)],
-           use.names = T)
+    tree$Get(x, filterFun = isLeaf)
   })
   names(attributes) = vars
 
-  levels = lapply(strsplit(names(attributes[[1]]), split = "[.]"),
-                  function(x) x[-c(length(x))])
-  levels.df = as.data.frame(t(as.data.frame(levels)), stringsAsFactors = F)
-  colnames(levels.df) = paste0("level_", seq(levels.df)+1)
-  rownames(levels.df) = seq(nrow(levels.df))
+  levels.df = as.data.frame(t(tree$Get("path", filterFun = isLeaf)),
+                            stringsAsFactors = F, row.names = F)
+  colnames(levels.df) = paste0("level_", seq(levels.df))
 
-  return(data.frame(level_1 = tree$name, levels.df, attributes, stringsAsFactors = F))
+  return(data.frame(levels.df, attributes))
 }
-
 
