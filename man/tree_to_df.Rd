@@ -23,5 +23,4 @@ Convert a data tree object to a long format data frame
 tree_to_df(employee.tree, "Age", "Education")
 }
 
-
 }
